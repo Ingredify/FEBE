@@ -2,14 +2,20 @@ import { Link } from 'react-router-dom';
 
 const Navbar = ({ separateLogin }) => {
   return (
-    <nav className="font-montserrat fixed top-0 right-0 left-0 z-20 flex items-center px-24 py-2">
-      <div className="flex items-center space-x-50">
+    <nav
+      className={`font-montserrat fixed top-0 right-0 left-0 z-20 flex items-center px-7 py-2 lg:px-24 ${!separateLogin ? 'bg-white' : ''}`}
+    >
+      <div
+        className={`flex items-center space-x-16 md:space-x-32 lg:space-x-50 ${!separateLogin ? 'w-full justify-between' : ''}`}
+      >
         <div className="flex items-center gap-0.5">
-          <img src="./img/logo.png" alt="logo ingredify" className="w-9" />
-          <p className="text-dark-green text-lg font-semibold">Ingredify</p>
+          <img src="./img/logo.png" alt="logo ingredify" className="w-7 lg:w-9" />
+          <p className="text-dark-green text-sm font-semibold md:text-base lg:text-lg">Ingredify</p>
         </div>
 
-        <div className="text-custom-gray flex gap-10 text-sm">
+        <div
+          className={`text-custom-gray flex text-xs md:text-sm lg:gap-10 lg:text-sm ${!separateLogin ? '' : ''} gap-4`}
+        >
           <Link className="hover:text-dark-green transition-all hover:font-semibold" to="/home">
             Home
           </Link>
@@ -38,7 +44,7 @@ const Navbar = ({ separateLogin }) => {
       {/* ini buat welcome page, jadi loginnya kepisah */}
       {separateLogin && (
         <Link
-          className="bg-light-green hover:bg-dark-green z-40 ml-auto rounded-3xl px-4 py-2 text-sm text-white transition-all"
+          className="bg-light-green hover:bg-dark-green ml-auto hidden rounded-3xl px-2.5 py-1.5 text-xs text-white transition-all sm:block lg:block lg:px-4 lg:py-2 lg:text-sm"
           to="/login"
         >
           <p className="font-medium">Log in</p>
