@@ -38,3 +38,7 @@
   left: 0;
   background-color: rgba(47, 143, 119, 0.85);
 }
+
+.food-card2 {
+  box-shadow: rgba(99, 99, 99, 0.25) 0px 2px 8px 0px;
+}

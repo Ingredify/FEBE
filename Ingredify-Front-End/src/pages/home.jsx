@@ -1,8 +1,12 @@
+import { useState } from 'react';
 import Navbar from '../components/Navbar';
 import Sidebar from '../components/Sidebar';
 import FoodCard from '../components/FoodCard';
+import FoodCard2 from '../components/FoodCard2';
 
 const HomePage = () => {
+  const [showSidebar, setShowSidebar] = useState(false);
+
   return (
     <section>
       <Navbar />
@@ -42,17 +46,24 @@ const HomePage = () => {
           </div>
         </div>
         <main className="flex px-7 py-9 lg:px-24">
-          <Sidebar />
-
+          {/* <Sidebar /> */}
+          <Sidebar show={showSidebar} setShowSidebar={setShowSidebar} />
           <section className="grid grid-cols-2 gap-6 md:grid-cols-3 xl:grid-cols-4">
             <FoodCard />
             <FoodCard />
             <FoodCard />
             <FoodCard />
+            <FoodCard2 />
+            <FoodCard2 />
+            <FoodCard2 />
+            <FoodCard2 />
           </section>
         </main>
       </div>
-      <div className="bg-light-green hover:bg-dark-green fixed right-4 bottom-4 block cursor-pointer rounded-full p-2 text-white shadow-2xl md:hidden">
+      <div
+        className="bg-light-green hover:bg-dark-green fixed right-4 bottom-4 block cursor-pointer rounded-full p-2 text-white shadow-2xl md:hidden"
+        onClick={() => setShowSidebar(!showSidebar)}
+      >
         <svg
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
@@ -68,6 +79,12 @@ const HomePage = () => {
           />
         </svg>
       </div>
+
+      <footer>
+        <div className="bg-custom-black py-4 text-center text-sm text-white">
+          <p>© 2025 Ingredify. All rights reserved.</p>
+        </div>
+      </footer>
     </section>
   );
 };

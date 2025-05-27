@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 const Navbar = ({ separateLogin }) => {
   return (
     <nav
-      className={`font-montserrat fixed top-0 right-0 left-0 z-20 flex items-center px-7 py-2 lg:px-24 ${!separateLogin ? 'bg-white' : ''}`}
+      className={`font-montserrat fixed top-0 right-0 left-0 z-20 flex items-center px-7 py-2 lg:px-24 ${!separateLogin ? 'bg-white shadow-sm' : ''}`}
     >
       <div
         className={`flex items-center space-x-3 md:space-x-32 lg:space-x-50 ${!separateLogin ? 'w-full justify-between' : ''}`}
