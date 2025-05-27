@@ -20,7 +20,7 @@ const WelcomePage = () => {
         <div className="z-10 flex h-auto w-full flex-col justify-center py-12 lg:h-screen lg:w-[36rem] lg:py-0">
           <span className="bg-light-green hidden h-0.5 w-3/4 lg:block"></span>
 
-          <h1 className="font-agbalumo mb-4 text-3xl leading-snug font-bold sm:text-4xl md:text-5xl">
+          <h1 className="font-agbalumo mt-2 mb-4 text-3xl leading-snug font-bold sm:text-4xl md:text-5xl">
             Turn Your <span className="text-light-green">Ingredients</span> into Delicious Meals
           </h1>
           <p className="text-custom-gray mb-6 text-base font-light md:text-lg">

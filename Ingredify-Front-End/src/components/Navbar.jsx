@@ -6,16 +6,14 @@ const Navbar = ({ separateLogin }) => {
       className={`font-montserrat fixed top-0 right-0 left-0 z-20 flex items-center px-7 py-2 lg:px-24 ${!separateLogin ? 'bg-white' : ''}`}
     >
       <div
-        className={`flex items-center space-x-16 md:space-x-32 lg:space-x-50 ${!separateLogin ? 'w-full justify-between' : ''}`}
+        className={`flex items-center space-x-3 md:space-x-32 lg:space-x-50 ${!separateLogin ? 'w-full justify-between' : ''}`}
       >
         <div className="flex items-center gap-0.5">
           <img src="./img/logo.png" alt="logo ingredify" className="w-7 lg:w-9" />
           <p className="text-dark-green text-sm font-semibold md:text-base lg:text-lg">Ingredify</p>
         </div>
 
-        <div
-          className={`text-custom-gray flex text-xs md:text-sm lg:gap-10 lg:text-sm ${!separateLogin ? '' : ''} gap-4`}
-        >
+        <div className={`text-custom-gray flex gap-4 text-xs md:text-sm lg:gap-10 lg:text-sm`}>
           <Link className="hover:text-dark-green transition-all hover:font-semibold" to="/home">
             Home
           </Link>

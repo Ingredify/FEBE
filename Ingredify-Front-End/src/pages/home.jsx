@@ -1,11 +1,13 @@
 import Navbar from '../components/Navbar';
+import Sidebar from '../components/Sidebar';
+import FoodCard from '../components/FoodCard';
 
 const HomePage = () => {
   return (
     <section>
       <Navbar />
       <div className="lg:mt-12">
-        <div className="img-background relative min-h-86 text-white lg:min-h-96">
+        <div className="img-background relative min-h-84 text-white lg:min-h-92">
           <div className="relative px-6 pt-20 text-center lg:pt-16">
             <h1 className="mb-2 text-2xl font-bold md:text-3xl lg:text-4xl">
               Find Delicious Recipes With Ingredients You Have
@@ -39,6 +41,32 @@ const HomePage = () => {
             </div>
           </div>
         </div>
+        <main className="flex px-7 py-9 lg:px-24">
+          <Sidebar />
+
+          <section className="grid grid-cols-2 gap-6 md:grid-cols-3 xl:grid-cols-4">
+            <FoodCard />
+            <FoodCard />
+            <FoodCard />
+            <FoodCard />
+          </section>
+        </main>
+      </div>
+      <div className="bg-light-green hover:bg-dark-green fixed right-4 bottom-4 block cursor-pointer rounded-full p-2 text-white shadow-2xl md:hidden">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          strokeWidth={1.5}
+          stroke="currentColor"
+          className="size-9"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
+          />
+        </svg>
       </div>
     </section>
   );

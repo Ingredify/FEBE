@@ -9,8 +9,7 @@
   --color-light-green: #059669;
   --color-custom-black: #1f2937;
   --color-custom-gray: #4e5765;
-  --breakpoint-xs: 30rem;
-  --breakpoint-lg2: 85rem;
+  --breakpoint-2md: 64rem;
 }
 
 .heroImage {
