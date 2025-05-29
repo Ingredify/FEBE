@@ -6,15 +6,6 @@ const WelcomePage = () => {
     <section className="font-montserrat relative h-screen w-full overflow-hidden pt-5 md:pt-10 lg:pt-0">
       <Navbar separateLogin />
 
-      {/* Background Image (layar kecil) */}
-      {/* <div className="absolute inset-0 -z-10 opacity-20 lg:hidden">
-        <img
-          src="./img/heroImg2.jpg"
-          alt="hero background mobile"
-          className="h-full w-full object-cover"
-        />
-      </div> */}
-
       <div className="relative flex h-screen flex-col px-6 md:px-16 lg:flex-row lg:px-24">
         {/* Text Content */}
         <div className="z-10 flex h-auto w-full flex-col justify-center py-12 lg:h-screen lg:w-[36rem] lg:py-0">
@@ -40,7 +31,6 @@ const WelcomePage = () => {
           <img src="./img/heroImg2.jpg" alt="hero image" className="h-full w-full object-cover" />
         </div>
 
-        {/* Background Image transparan */}
         <img
           src="./img/bg-food.png"
           alt="background image"

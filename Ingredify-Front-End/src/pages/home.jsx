@@ -3,12 +3,15 @@ import Navbar from '../components/Navbar';
 import Sidebar from '../components/Sidebar';
 import FoodCard from '../components/FoodCard';
 import FoodCard2 from '../components/FoodCard2';
+import Footer from '../components/Footer';
+import MenuButton from '../elements/MenuButton';
+import BackgroundImgFood from '../elements/BackgroundImgFood';
 
 const HomePage = () => {
   const [showSidebar, setShowSidebar] = useState(false);
 
   return (
-    <section>
+    <section className="relative overflow-visible">
       <Navbar />
       <div className="lg:mt-12">
         <div className="img-background relative min-h-84 text-white lg:min-h-92">
@@ -25,30 +28,23 @@ const HomePage = () => {
                 type="search"
                 className="text-custom-black w-full rounded p-2 placeholder:text-gray-400 focus:outline-none"
               />
-              <button className="hover:bg-dark-green bg-light-green flex items-center justify-center gap-2 rounded-lg px-2 py-0 text-xs font-semibold text-white hover:cursor-pointer lg:px-4 lg:py-2 lg:text-sm">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  strokeWidth={1.5}
-                  stroke="currentColor"
-                  className="size-6"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z"
-                  />
-                </svg>
+              <button className="hover:bg-dark-green bg-light-green flex items-center gap-1 rounded-lg px-2 py-0 text-xs font-semibold text-white hover:cursor-pointer md:gap-2 lg:px-4 lg:py-2 lg:text-sm">
+                <i className="fa-solid fa-magnifying-glass"></i>
                 Search
               </button>
             </div>
           </div>
         </div>
-        <main className="flex px-7 py-9 lg:px-24">
+        <main className="flex px-7 py-9 pb-20 lg:px-24">
           {/* <Sidebar /> */}
           <Sidebar show={showSidebar} setShowSidebar={setShowSidebar} />
-          <section className="grid grid-cols-2 gap-6 md:grid-cols-3 xl:grid-cols-4">
+          <div className="grid w-full grid-cols-2 gap-5 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
+            <FoodCard />
+            <FoodCard />
+            <FoodCard />
+            <FoodCard />
+            <FoodCard />
+            <FoodCard />
             <FoodCard />
             <FoodCard />
             <FoodCard />
@@ -57,34 +53,20 @@ const HomePage = () => {
             <FoodCard2 />
             <FoodCard2 />
             <FoodCard2 />
-          </section>
+            <FoodCard2 />
+            <FoodCard2 />
+            <FoodCard2 />
+            <FoodCard2 />
+            <FoodCard2 />
+            <FoodCard2 />
+          </div>
         </main>
       </div>
-      <div
-        className="bg-light-green hover:bg-dark-green fixed right-4 bottom-4 block cursor-pointer rounded-full p-2 text-white shadow-2xl md:hidden"
-        onClick={() => setShowSidebar(!showSidebar)}
-      >
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          fill="none"
-          viewBox="0 0 24 24"
-          strokeWidth={1.5}
-          stroke="currentColor"
-          className="size-9"
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
-          />
-        </svg>
-      </div>
+      <MenuButton showSidebar={showSidebar} setShowSidebar={setShowSidebar} />
 
-      <footer>
-        <div className="bg-custom-black py-4 text-center text-sm text-white">
-          <p>© 2025 Ingredify. All rights reserved.</p>
-        </div>
-      </footer>
+      {/* Background Image transparan */}
+      <BackgroundImgFood />
+      <Footer />
     </section>
   );
 };
