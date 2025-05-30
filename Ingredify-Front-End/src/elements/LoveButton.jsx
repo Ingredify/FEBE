@@ -1,6 +1,6 @@
 const LoveButton = () => {
   return (
-    <button className="cursor-pointer rounded-full bg-white/65 p-1.5 text-transparent transition hover:bg-white/90 hover:text-red-500">
+    <button className="cursor-pointer rounded-full bg-white/65 p-1.5 text-transparent transition hover:bg-white/80 hover:text-red-500/80">
       <svg
         xmlns="http://www.w3.org/2000/svg"
         fill="currentColor"

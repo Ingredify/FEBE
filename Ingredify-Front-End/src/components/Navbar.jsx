@@ -30,7 +30,7 @@ const Navbar = ({ separateLogin }) => {
           {/* ini buat dipage lain selain welcome page, loginnya nyatu*/}
           {!separateLogin && (
             <Link
-              to="/login"
+              to="/signin"
               className="hover:text-dark-green text-custom-gray transition-all hover:font-semibold"
             >
               Log in
@@ -43,7 +43,7 @@ const Navbar = ({ separateLogin }) => {
       {separateLogin && (
         <Link
           className="bg-light-green hover:bg-dark-green ml-auto hidden rounded-3xl px-2.5 py-1.5 text-xs text-white transition-all sm:block lg:block lg:px-4 lg:py-2 lg:text-sm"
-          to="/login"
+          to="/signin"
         >
           <p className="font-medium">Log in</p>
         </Link>

@@ -52,11 +52,21 @@ const Sidebar = ({ show, setShowSidebar }) => {
         <div>
           <p className="text-light-green mb-1.5 font-medium">Type</p>
           <div className="text-custom-black flex w-fit flex-col items-start gap-1">
-            <button>Appetizers</button>
-            <button>Main Course</button>
-            <button>Side Dishes</button>
-            <button>Desserts</button>
-            <button>Snacks</button>
+            <button className="hover:text-light-green cursor-pointer transition-all hover:font-semibold">
+              Appetizers
+            </button>
+            <button className="hover:text-light-green cursor-pointer transition-all hover:font-semibold">
+              Main Course
+            </button>
+            <button className="hover:text-light-green cursor-pointer transition-all hover:font-semibold">
+              Side Dishes
+            </button>
+            <button className="hover:text-light-green cursor-pointer transition-all hover:font-semibold">
+              Desserts
+            </button>
+            <button className="hover:text-light-green cursor-pointer transition-all hover:font-semibold">
+              Snacks
+            </button>
           </div>
         </div>
       </div>

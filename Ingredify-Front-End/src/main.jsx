@@ -6,20 +6,42 @@ import WelcomePage from './pages/welcome.jsx';
 import ErrorPage from './pages/404.jsx';
 import HomePage from './pages/home.jsx';
 import DetailRecipePage from './pages/detail-recipe.jsx';
+import RootLayout from './elements/RootLayout.jsx'; // import layout baru
+import CollectionPage from './pages/collection.jsx';
+import LoginPage from './pages/login.jsx';
+import RegisterPage from './pages/register.jsx';
 
 const router = createBrowserRouter([
   {
     path: '/',
-    element: <WelcomePage />,
+    element: <RootLayout />,
     errorElement: <ErrorPage />,
-  },
-  {
-    path: '/home',
-    element: <HomePage />,
-  },
-  {
-    path: '/recipe',
-    element: <DetailRecipePage />,
+    children: [
+      {
+        index: true,
+        element: <WelcomePage />,
+      },
+      {
+        path: 'signin',
+        element: <LoginPage />,
+      },
+      {
+        path: 'signup',
+        element: <RegisterPage />,
+      },
+      {
+        path: 'home',
+        element: <HomePage />,
+      },
+      {
+        path: 'recipe',
+        element: <DetailRecipePage />,
+      },
+      {
+        path: 'collection',
+        element: <CollectionPage />,
+      },
+    ],
   },
 ]);
 

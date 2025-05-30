@@ -3,7 +3,7 @@ import LoveButton from '../elements/LoveButton';
 
 const FoodCard2 = () => {
   return (
-    <div className="food-card2 group z-10 overflow-hidden rounded-xl bg-white">
+    <div className="group food-card2 group z-10 overflow-hidden rounded-xl bg-white">
       <div className="relative mb-1 h-30 w-full cursor-pointer transition-transform duration-300 group-hover:scale-103">
         <Link to="/recipe">
           <img src="./img/food.jpg" className="h-full w-full object-cover" alt="food img" />
@@ -36,9 +36,12 @@ const FoodCard2 = () => {
             </svg>
             30 Mins
           </p>
-          <button className="text-light-green hover:text-dark-green flex cursor-pointer items-center gap-2 rounded-lg text-xs font-semibold lg:text-sm">
+          <Link
+            to="/recipe"
+            className="text-light-green hover:text-dark-green flex cursor-pointer items-center gap-2 rounded-lg text-xs font-semibold lg:text-sm"
+          >
             View Recipe
-          </button>
+          </Link>
         </div>
       </div>
     </div>

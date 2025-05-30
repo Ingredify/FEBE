@@ -17,7 +17,7 @@ const DetailRecipePage = () => {
         <Sidebar show={showSidebar} setShowSidebar={setShowSidebar} />
         <div className="font-montserrat mt-3 w-full">
           <Link
-            to="/"
+            to="/home"
             className="text-light-green group flex w-fit cursor-pointer items-center gap-1.5"
           >
             <i class="fa-solid fa-chevron-left h-4"></i>
