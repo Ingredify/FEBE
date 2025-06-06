@@ -5,8 +5,8 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import WelcomePage from './pages/welcome.jsx';
 import ErrorPage from './pages/404.jsx';
 import HomePage from './pages/home.jsx';
-import AboutPage from './pages/about.jsx'
-simport DetailRecipePage from './pages/detail-recipe.jsx';
+import AboutPage from './pages/about.jsx';
+import DetailRecipePage from './pages/detail-recipe.jsx';
 import RootLayout from './elements/RootLayout.jsx'; // import layout baru
 import CollectionPage from './pages/collection.jsx';
 import LoginPage from './pages/login.jsx';
@@ -42,12 +42,12 @@ const router = createBrowserRouter([
         path: 'collection',
         element: <CollectionPage />,
       },
+      {
+        path: '/about',
+        element: <AboutPage />,
+      },
     ],
   },
-  {
-    path: '/about',
-    element: <AboutPage />,
-  }
 ]);
 
 createRoot(document.getElementById('root')).render(
