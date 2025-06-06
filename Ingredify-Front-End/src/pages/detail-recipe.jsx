@@ -84,16 +84,16 @@ const DetailRecipePage = () => {
             <div>
               <ol className="list-decimal pl-4.5 text-sm">
                 <li>
-                   Season chicken breasts with salt and pepper. Grill or pan-fry until cooked
+                  Season chicken breasts with salt and pepper. Grill or pan-fry until cooked
                   through. Slice into strips.
                 </li>
-                <li> Cook fettuccine according to package instructions. Drain and set aside.</li>
+                <li>Cook fettuccine according to package instructions. Drain and set aside.</li>
                 <li>
-                   In a large skillet, heat olive oil over medium heat. Add minced garlic and sauté
+                  In a large skillet, heat olive oil over medium heat. Add minced garlic and sauté
                   until fragrant.
                 </li>
-                <li> Add heavy cream and butter. Bring to a simmer.</li>
-                <li> Stir in Parmesan cheese until melted and sauce is smooth.</li>
+                <li>Add heavy cream and butter. Bring to a simmer.</li>
+                <li>Stir in Parmesan cheese until melted and sauce is smooth.</li>
                 <li>Add cooked pasta to the sauce and toss to coat.</li>
                 <li>Add sliced chicken and gently mix.</li>
                 <li>Season with salt and pepper. Garnish with fresh parsley before serving.</li>
