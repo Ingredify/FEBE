@@ -30,7 +30,12 @@ export default [
       'react-refresh/only-export-components': ['warn', { allowConstantExport: true }],
       'prettier/prettier': 'error',
       'endOfLine': 'auto',
-      'prettier/prettier': ['error', {}],
+      'prettier/prettier': [
+        'error',
+        {
+          endOfLine: 'auto',
+        },
+      ],
     },
   },
 ];
