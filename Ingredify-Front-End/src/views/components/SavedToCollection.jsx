@@ -2,9 +2,9 @@ import FolderRecipe from './FolderRecipe';
 
 const SavedToCollection = ({ handleSave, onClose }) => {
   return (
-    <div className="relative mx-auto w-full max-w-md rounded-lg bg-white p-6 shadow-lg">
+    <div className="relative mx-4 w-full max-w-md rounded-lg bg-white p-6 shadow-lg">
       <button
-        className="absolute top-2 right-3 text-lg text-gray-400 hover:text-black"
+        className="absolute top-2 right-3 cursor-pointer text-3xl text-gray-400 hover:text-black"
         onClick={onClose}
       >
         ×
@@ -21,7 +21,7 @@ const SavedToCollection = ({ handleSave, onClose }) => {
 
       <button
         onClick={handleSave}
-        className="w-full rounded-md bg-green-500 px-2 py-1 text-sm text-white hover:bg-green-600"
+        className="bg-light-green hover:bg-dark-green w-full cursor-pointer rounded-md px-2 py-1 text-sm text-white"
       >
         Save
       </button>

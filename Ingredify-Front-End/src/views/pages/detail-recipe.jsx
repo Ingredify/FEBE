@@ -23,7 +23,7 @@ const DetailRecipePage = () => {
     <section className="relative w-full overflow-visible">
       <Navbar />
       <div className="mt-7 flex px-7 py-9 lg:px-24">
-        <Sidebar show={showSidebar} setShowSidebar={setShowSidebar} />
+        {/* <Sidebar show={showSidebar} setShowSidebar={setShowSidebar} /> */}
         <div className="font-montserrat mt-3 w-full">
           <Link
             to="/home"
@@ -112,7 +112,7 @@ const DetailRecipePage = () => {
           <div className="text-custom-black mt-4 border-t-1 border-dashed pt-2">
             <p className="font-medium">Instructions</p>
             <div>
-              <ol className="list-decimal pl-4.5 text-sm">
+              <ol className="list-decimal pl-4.5 text-sm text-shadow-2xs">
                 <li>
                   Season chicken breasts with salt and pepper. Grill or pan-fry until cooked
                   through. Slice into strips.
@@ -132,7 +132,7 @@ const DetailRecipePage = () => {
           </div>
         </div>
       </div>
-      <MenuButton showSidebar={showSidebar} setShowSidebar={setShowSidebar} />
+      {/* <MenuButton showSidebar={showSidebar} setShowSidebar={setShowSidebar} /> */}
       <BackgroundImgFood />
       <Footer />
     </section>

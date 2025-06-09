@@ -10,7 +10,7 @@ const FolderRecipe = () => {
   return (
     <Link
       to={'/home'}
-      className="collection-shadow hover:outline-light-green flex cursor-pointer items-center rounded-lg bg-white px-4 py-3 hover:outline-2"
+      className="collection-shadow hover:outline-light-green z-10 flex cursor-pointer items-center rounded-lg bg-white px-4 py-3 hover:outline-2"
     >
       <div className="flex items-center justify-center rounded-full bg-red-600 p-2 text-white">
         <svg

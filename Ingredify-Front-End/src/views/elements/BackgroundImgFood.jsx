@@ -1,9 +1,9 @@
-const BackgroundImgFood = () => {
+const BackgroundImgFood = ({ position = '-left-30' }) => {
   return (
     <img
       src="./img/bg-food.png"
       alt="background image"
-      className="absolute bottom-0 z-0 mx-auto opacity-10 md:w-xl lg:absolute lg:-left-30 lg:w-lg"
+      className={`pointer-events-none absolute bottom-0 z-0 mx-auto opacity-8 ${position} md:w-xl lg:w-lg`}
     />
   );
 };

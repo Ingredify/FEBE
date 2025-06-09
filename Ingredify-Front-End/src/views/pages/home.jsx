@@ -62,9 +62,8 @@ const HomePage = () => {
           </div>
         </main>
       </div>
-      <MenuButton showSidebar={showSidebar} setShowSidebar={setShowSidebar} />
+      {/* <MenuButton showSidebar={showSidebar} setShowSidebar={setShowSidebar} /> */}
 
-      {/* Background Image transparan */}
       <BackgroundImgFood />
       <Footer />
     </section>
