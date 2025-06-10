@@ -5,7 +5,9 @@
   "main": "index.js",
   "scripts": {
     "dev": "nodemon src/server.js",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "build": "node src/server.js",
+    "setup": "npx prisma migrate reset -f && npx prisma generate && npx prisma migrate deploy"
   },
   "author": "",
   "license": "ISC",
