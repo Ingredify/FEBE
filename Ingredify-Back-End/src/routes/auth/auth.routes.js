@@ -1,7 +1,6 @@
 const {
   registerHandler,
   loginHandler,
-  getUserHandler,
 } = require('./auth.handler');
 const routes = [
   {
@@ -10,6 +9,8 @@ const routes = [
     handler: registerHandler,
     options: {
       auth: false,
+      description: 'Register new user',
+      tags: ['api'],
     },
   },
   {
@@ -18,14 +19,6 @@ const routes = [
     handler: loginHandler,
     options: {
       auth: false,
-    },
-  },
-  {
-    method: 'GET',
-    path: '/users',
-    handler: getUserHandler,
-    options: {
-      auth: 'jwt',
     },
   },
 ];
