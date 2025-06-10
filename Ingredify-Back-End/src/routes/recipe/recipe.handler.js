@@ -313,7 +313,7 @@ const getRatedRecipesByUserHandler = async (request, h) => {
   }
 };
 
-const searchRecipesByIngredient = async (ingredient) => {
+const searchRecipesByIngredient = async (ingredient, skip, limit) => {
   const recipes = await prisma.$queryRawUnsafe(
     `
     SELECT *
@@ -323,51 +323,88 @@ const searchRecipesByIngredient = async (ingredient) => {
       FROM unnest("ingredients") AS ing
       WHERE ing ILIKE '%' || $1 || '%'
     )
-  `,
-    ingredient
+    OFFSET $2
+    LIMIT $3
+    `,
+    ingredient,
+    skip,
+    limit
   );
 
   return recipes;
 };
 
+const countRecipesByIngredient = async (ingredient) => {
+  const countResult = await prisma.$queryRawUnsafe(
+    `
+    SELECT COUNT(*) AS total
+    FROM "Recipe"
+    WHERE EXISTS (
+      SELECT 1
+      FROM unnest("ingredients") AS ing
+      WHERE ing ILIKE '%' || $1 || '%'
+    )
+    `,
+    ingredient
+  );
+
+  return Number(countResult[0].total);
+};
+
 const getSearchRecipeHandler = async (request, h) => {
-  const { ingredient } = request.query;
+  const { ingredient, page = 1, limit = 10 } = request.query;
 
   if (!ingredient) {
-    const response = h.response({
-      status: 'fail',
-      message: 'Ingredient query parameter is required',
-    });
-    response.code(400);
-    return response;
+    return h
+      .response({
+        status: 'fail',
+        message: 'Ingredient query parameter is required',
+      })
+      .code(400);
   }
 
-  try {
-    const recipes = await searchRecipesByIngredient(ingredient);
+  const pageNumber = Number(page);
+  const pageLimit = Number(limit);
+  const skippedRecipes = (pageNumber - 1) * pageLimit;
 
-    if (recipes.length === 0) {
-      const response = h.response({
-        status: 'fail',
-        message: 'No recipes found for the given ingredient',
-      });
-      response.code(404);
-      return response;
+  try {
+    const totalRecipes = await countRecipesByIngredient(ingredient);
+
+    if (skippedRecipes >= totalRecipes) {
+      return h
+        .response({
+          status: 'fail',
+          message: 'Page not found',
+        })
+        .code(404);
     }
 
-    const response = h.response({
-      status: 'success',
-      data: recipes,
-    });
-    response.code(200);
-    return response;
+    const recipes = await searchRecipesByIngredient(
+      ingredient,
+      skippedRecipes,
+      pageLimit
+    );
+
+    return h
+      .response({
+        status: 'success',
+        data: recipes,
+        meta: {
+          page: pageNumber,
+          limit: pageLimit,
+          totalRecipes,
+          totalPages: Math.ceil(totalRecipes / pageLimit),
+        },
+      })
+      .code(200);
   } catch (error) {
     console.error(error);
-    const response = h.response({
-      status: 'fail',
-      message: 'Server error',
-    });
-    response.code(500);
-    return response;
+    return h
+      .response({
+        status: 'fail',
+        message: 'Server error',
+      })
+      .code(500);
   }
 };
 
