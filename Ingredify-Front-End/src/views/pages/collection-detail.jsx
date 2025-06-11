@@ -1,6 +1,10 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { fetchCollectionById, fetchRecipesInCollection } from '../../presenter/CollectionPresenter';
+import {
+  deleteRecipeFromCollection,
+  fetchCollectionById,
+  fetchRecipesInCollection,
+} from '../../presenter/CollectionPresenter';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import FoodCard2 from '../components/FoodCard2';
@@ -25,6 +29,10 @@ const CollectionDetailPage = () => {
     loadCollection();
   }, [id]);
 
+  const handleRemove = async (recipeId) => {
+    await deleteRecipeFromCollection(collection.id, recipeId, setRecipes, setError);
+  };
+
   if (loading) return <p className="p-4 text-center">Loading...</p>;
   if (error) return <p className="p-4 text-center text-red-500">{error}</p>;
   if (!collection) return <p className="p-4 text-center">Collection not found.</p>;
@@ -42,7 +50,15 @@ const CollectionDetailPage = () => {
         ) : (
           <div className="grid w-full grid-cols-1 gap-5 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
             {recipes.map((recipe) => (
-              <FoodCard2 key={recipe.id} recipe={recipe} />
+              <div key={recipe.foodId} className="relative">
+                <FoodCard2 recipe={recipe} />
+                <button
+                  onClick={() => handleRemove(recipe.recipe.id)}
+                  className="absolute top-2 right-2 cursor-pointer rounded-full bg-red-500 px-2 py-1 text-xs text-white hover:bg-red-600"
+                >
+                  Remove
+                </button>
+              </div>
             ))}
           </div>
         )}

@@ -36,7 +36,7 @@ const DetailRecipePage = () => {
 
   useEffect(() => {
     if (recipe?.id) {
-      fetchRecipeRating(recipe.id, setAverageRating, setTotalRating, setRatingError);
+      fetchRecipeRating(recipe.foodId, setAverageRating, setTotalRating, setRatingError);
       fetchUserRecipeRating(recipe.id, setYourRating);
     }
   }, [recipe]);

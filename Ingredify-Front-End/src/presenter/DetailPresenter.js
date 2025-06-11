@@ -24,7 +24,7 @@ export const fetchRecipeRating = async (recipeId, setAverageRating, setTotalRati
     setAverageRating(response.averageRating);
     setTotalRating(response.totalRating);
   } catch (err) {
-    setError(err);
+    setError(err.message);
   }
 };
 

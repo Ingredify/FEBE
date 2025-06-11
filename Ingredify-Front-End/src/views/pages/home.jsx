@@ -27,7 +27,6 @@ const HomePage = () => {
   const navigate = useNavigate();
   const [searchInput, setSearchInput] = useState('');
   const [showSaveModal, setShowSaveModal] = useState(false);
-  const [selectedRecipeId, setSelectedRecipeId] = useState(null);
 
   useEffect(() => {
     const token = getToken();
@@ -41,11 +40,6 @@ const HomePage = () => {
   useEffect(() => {
     fetchAllRecipes(setAllRecipes, setAllLoading, setAllError, page, limit, setMeta);
   }, [page]);
-
-  const handleOpenSaveModal = (recipeId) => {
-    setSelectedRecipeId(recipeId);
-    setShowSaveModal(true);
-  };
 
   return (
     <section className="font-montserrat relative overflow-visible">
@@ -95,11 +89,7 @@ const HomePage = () => {
 
               <div className="grid w-full grid-cols-1 gap-5 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
                 {recipes.map((recipe) => (
-                  <FoodCard2
-                    key={recipe.food_id}
-                    recipe={recipe}
-                    onLoveClick={handleOpenSaveModal}
-                  />
+                  <FoodCard2 key={recipe.foodId} recipe={recipe} />
                 ))}
               </div>
             </div>
@@ -112,7 +102,7 @@ const HomePage = () => {
 
             <div className="grid w-full grid-cols-1 gap-5 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
               {allRecipes.map((recipe) => (
-                <FoodCard2 key={recipe.id} recipe={recipe} />
+                <FoodCard2 key={recipe.foodId} recipe={recipe} />
               ))}
             </div>
           </div>
@@ -131,15 +121,6 @@ const HomePage = () => {
               </div>
             </div>
           </div>
-          {showSaveModal && (
-            <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40">
-              <SavedToCollection
-                recipeId={selectedRecipeId}
-                handleSave={() => setShowSaveModal(false)}
-                onClose={() => setShowSaveModal(false)}
-              />
-            </div>
-          )}
         </main>
       </div>
       {/* <MenuButton showSidebar={showSidebar} setShowSidebar={setShowSidebar} /> */}
