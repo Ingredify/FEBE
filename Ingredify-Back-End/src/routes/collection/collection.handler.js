@@ -65,7 +65,7 @@ const getCollectionHandler = async (request, h) => {
       name: collection.name,
       description: collection.description,
       createdAt: collection.createdAt,
-      recipeCount: collection._count.CollectionRecipes,
+      recipeCount: collection._count.CollectionRecipe,
     }));
     const response = h.response({
       status: 'success',
