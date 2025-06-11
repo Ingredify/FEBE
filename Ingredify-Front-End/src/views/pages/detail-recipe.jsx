@@ -23,6 +23,8 @@ const DetailRecipePage = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   const [averageRating, setAverageRating] = useState(null);
+  const [totalRating, setTotalRating] = useState(0);
+
   const [ratingError, setRatingError] = useState('');
   const [submitting, setSubmitting] = useState(false);
 
@@ -34,15 +36,10 @@ const DetailRecipePage = () => {
 
   useEffect(() => {
     if (recipe?.id) {
-      fetchRecipeRating(recipe.id, setAverageRating, setRatingError);
+      fetchRecipeRating(recipe.id, setAverageRating, setTotalRating, setRatingError);
       fetchUserRecipeRating(recipe.id, setYourRating);
     }
   }, [recipe]);
-
-  const handleToggleLike = (folderId) => {
-    console.log('Disimpan ke folder:', folderId);
-    setLiked(true);
-  };
 
   const handleRatingChange = (newRating) => {
     setYourRating(newRating);
@@ -52,13 +49,12 @@ const DetailRecipePage = () => {
       setSubmitting,
       () => {
         setTimeout(() => {
-          fetchRecipeRating(recipe.id, setAverageRating, setRatingError);
+          fetchRecipeRating(recipe.id, setAverageRating, setTotalRating, setRatingError);
         }, 500);
       },
       (err) => alert('Gagal mengirim rating: ' + err),
     );
   };
-
   return (
     <section className="relative w-full overflow-visible">
       <Navbar />
@@ -87,7 +83,11 @@ const DetailRecipePage = () => {
                       <h1 className="text-custom-black w-fit text-lg font-semibold lg:text-2xl">
                         {recipe.name}
                       </h1>
-                      <LoveButton liked={liked} onToggle={handleToggleLike} />
+                      <LoveButton
+                        liked={liked}
+                        onToggle={() => setLiked(false)}
+                        recipeId={recipe.id}
+                      />
                     </div>
                   </div>
                 </div>
@@ -106,7 +106,10 @@ const DetailRecipePage = () => {
                   <div className="mt-5 flex justify-between md:mt-0 md:block lg:mt-2">
                     <div className="mb-2">
                       <p className="text-custom-gray mb-1 text-xs">Average Rating</p>
-                      <StarRating rating={3.5} starSize={'text-lg'} />
+                      <div className="flex items-center gap-2">
+                        <StarRating rating={averageRating} starSize={'text-lg'} />
+                        <span className="text-xs text-gray-500">({totalRating})</span>
+                      </div>
                     </div>
                     <div>
                       <p className="text-custom-gray mb-1 text-end text-xs md:text-start">

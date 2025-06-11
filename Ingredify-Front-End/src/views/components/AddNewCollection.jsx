@@ -36,9 +36,9 @@ const AddNewCollection = ({ onSuccess }) => {
   return (
     <form onSubmit={onSubmit}>
       {errorMsg && <p className="mb-3 text-sm text-red-500">{errorMsg}</p>}
-      <h2 class="text-custom-black mb-4 text-lg font-semibold">Add new collection</h2>
-      <div class="mb-5">
-        <label for="text" class="text-custom-black mb-2 block text-sm font-medium">
+      <h2 className="text-custom-black mb-4 text-lg font-semibold">Add new collection</h2>
+      <div className="mb-5">
+        <label htmlFor="text" className="text-custom-black mb-2 block text-sm font-medium">
           Folder Name
         </label>
         <input
@@ -47,13 +47,13 @@ const AddNewCollection = ({ onSuccess }) => {
           name="name"
           onChange={handleChange}
           value={formData.name}
-          class="text-custom-black block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm focus:border-blue-500 focus:ring-blue-500"
+          className="text-custom-black block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm focus:border-blue-500 focus:ring-blue-500"
           placeholder="e.g My Favorite 1"
           required
         />
       </div>
-      <div class="mb-5">
-        <label for="text2" class="text-custom-black mb-2 block text-sm font-medium">
+      <div className="mb-5">
+        <label htmlFor="text2" className="text-custom-black mb-2 block text-sm font-medium">
           Folder Description
         </label>
         <input
@@ -62,7 +62,7 @@ const AddNewCollection = ({ onSuccess }) => {
           name="description"
           value={formData.description}
           onChange={handleChange}
-          class="text-custom-black block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm focus:border-blue-500 focus:ring-blue-500"
+          className="text-custom-black block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm focus:border-blue-500 focus:ring-blue-500"
           required
           placeholder="Brief Description"
         />

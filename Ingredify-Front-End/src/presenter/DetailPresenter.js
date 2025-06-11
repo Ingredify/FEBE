@@ -18,12 +18,13 @@ export async function fetchRecipeDetail(setRecipe, setLoading, setError, foodId)
   }
 }
 
-export const fetchRecipeRating = async (recipeId, setAverageRating, setRatingError) => {
+export const fetchRecipeRating = async (recipeId, setAverageRating, setTotalRating, setError) => {
   try {
-    const avg = await getRecipeAverageRating(recipeId);
-    setAverageRating(avg);
-  } catch (error) {
-    setRatingError(error);
+    const response = await getRecipeAverageRating(recipeId);
+    setAverageRating(response.averageRating);
+    setTotalRating(response.totalRating);
+  } catch (err) {
+    setError(err);
   }
 };
 

@@ -67,11 +67,11 @@ const CollectionsPage = () => {
             + Add Collection
           </button>
         </div>
-        <div className="flex">
-          <div className="form-collections top-20 z-10 mr-5 hidden h-fit w-1/3 rounded-2xl bg-white px-6 py-4 lg:sticky lg:block">
+        <div className="relative flex">
+          <div className="form-collections top-96 z-10 mr-5 hidden w-1/3 rounded-2xl bg-white px-6 py-4 lg:sticky lg:block">
             <AddNewCollection onSuccess={handleCollectionCreated} />
           </div>
-          <div className="grid w-full grid-cols-1 gap-5 md:grid-cols-3">
+          <div className="grid h-21 w-full grid-cols-1 gap-5 md:grid-cols-3">
             {collections.length === 0 ? (
               <p className="text-sm text-gray-400">No collections yet.</p>
             ) : (

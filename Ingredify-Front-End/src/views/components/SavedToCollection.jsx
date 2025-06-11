@@ -1,6 +1,36 @@
-import FolderRecipe from './FolderRecipe';
+import { useEffect, useState } from 'react';
+import {
+  fetchUserCollections,
+  handleAddRecipeToCollection,
+} from '../../presenter/CollectionPresenter';
 
-const SavedToCollection = ({ handleSave, onClose }) => {
+const SavedToCollection = ({ recipeId, handleSave, onClose }) => {
+  const [collections, setCollections] = useState([]);
+  const [selectedFolder, setSelectedFolder] = useState('');
+  const [error, setError] = useState('');
+
+  useEffect(() => {
+    fetchUserCollections(setCollections, setError);
+  }, []);
+
+  const onSave = () => {
+    if (!selectedFolder) return;
+
+    console.log('Selected Collection ID:', selectedFolder);
+    console.log('Recipe ID to save:', recipeId);
+    handleAddRecipeToCollection(
+      selectedFolder,
+      recipeId,
+      () => {
+        handleSave();
+        onClose();
+      },
+      (err) => {
+        alert('Failed to save: ' + (err.message || 'Unknown error'));
+      },
+    );
+  };
+
   return (
     <div className="relative mx-4 w-full max-w-md rounded-lg bg-white p-6 shadow-lg">
       <button
@@ -12,15 +42,25 @@ const SavedToCollection = ({ handleSave, onClose }) => {
 
       <h2 className="mb-4 text-center text-lg font-semibold">Save to Collection</h2>
 
-      <select className="mb-4 w-full rounded-md border border-gray-300 p-2 text-sm">
+      <select
+        className="mb-4 w-full rounded-md border border-gray-300 p-2 text-sm"
+        value={selectedFolder}
+        onChange={(e) => {
+          const selected = e.target.value;
+          console.log('Selected Collection ID:', selected);
+          setSelectedFolder(selected);
+        }}
+      >
         <option value="">Select a folder</option>
-        <option value="fav">Favorites</option>
-        <option value="dinner">Dinner Ideas</option>
-        <option value="healthy">Healthy Meals</option>
+        {collections.map((col) => (
+          <option key={col.id} value={col.id}>
+            {col.name}
+          </option>
+        ))}
       </select>
 
       <button
-        onClick={handleSave}
+        onClick={onSave}
         className="bg-light-green hover:bg-dark-green w-full cursor-pointer rounded-md px-2 py-1 text-sm text-white"
       >
         Save
