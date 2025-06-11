@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 // elements/StarRating.jsx
 const StarRating = ({
@@ -9,7 +9,12 @@ const StarRating = ({
   starSize,
 }) => {
   const [selectedRating, setSelectedRating] = useState(null);
-  const fullStars = Math.floor(rating);
+
+  useEffect(() => {
+    setSelectedRating(rating);
+  }, [rating]);
+
+  const fullStars = Math.floor(selectedRating);
   const halfStar = rating % 1 >= 0.5;
 
   const handleClick = (index) => {
@@ -41,7 +46,6 @@ const StarRating = ({
       {editable && selectedRating !== null && (
         <span className="text-custom-black ml-1.5">({selectedRating})</span>
       )}
-      {!editable && <p className="text-custom-black ml-1.5">({rating})</p>}
     </div>
   );
 };

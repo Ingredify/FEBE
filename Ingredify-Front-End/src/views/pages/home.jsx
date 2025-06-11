@@ -9,6 +9,7 @@ import { fetchAllRecipes, fetchHomeRecommendedRecipes } from '../../presenter/Ho
 import { useEffect, useState } from 'react';
 import Pagination from '../components/Pagination';
 import { getToken } from '../../models/AuthModel';
+import { useNavigate } from 'react-router-dom';
 
 const HomePage = () => {
   // const [showSidebar, setShowSidebar] = useState(false);
@@ -22,6 +23,8 @@ const HomePage = () => {
   const [page, setPage] = useState(1);
   const [meta, setMeta] = useState({ totalPages: 1, totalRecipes: 0 });
   const limit = 10;
+  const navigate = useNavigate();
+  const [searchInput, setSearchInput] = useState('');
 
   useEffect(() => {
     const token = getToken();
@@ -48,17 +51,30 @@ const HomePage = () => {
             <h2 className="mb-4 text-base md:text-lg lg:text-xl">
               Just type what's in your kitchen — we'll find the perfect recipes for you.
             </h2>
-            <div className="mx-auto flex w-3/4 justify-center gap-2 rounded-xl bg-white px-1.5 py-1 text-sm sm:w-1/2 md:w-2/5 lg:w-1/3 lg:py-1">
+            <form
+              onSubmit={(e) => {
+                e.preventDefault(); // mencegah reload page default dari form
+                if (searchInput.trim()) {
+                  navigate(`/search?ingredient=${encodeURIComponent(searchInput.trim())}`);
+                }
+              }}
+              className="mx-auto flex w-3/4 justify-center gap-2 rounded-xl bg-white px-1.5 py-1 text-sm sm:w-1/2 md:w-2/5 lg:w-1/3 lg:py-1"
+            >
               <input
                 placeholder="Enter ingredients (e.g., eggs, rice, tomato)"
                 type="search"
+                value={searchInput}
+                onChange={(e) => setSearchInput(e.target.value)}
                 className="text-custom-black w-full rounded p-2 placeholder:text-gray-400 focus:outline-none"
               />
-              <button className="hover:bg-dark-green bg-light-green flex items-center gap-1 rounded-lg px-2 py-0 text-xs font-semibold text-white hover:cursor-pointer md:gap-2 lg:px-4 lg:py-2 lg:text-sm">
+              <button
+                type="submit"
+                className="hover:bg-dark-green bg-light-green flex items-center gap-1 rounded-lg px-2 py-0 text-xs font-semibold text-white hover:cursor-pointer md:gap-2 lg:px-4 lg:py-2 lg:text-sm"
+              >
                 <i className="fa-solid fa-magnifying-glass"></i>
                 Search
               </button>
-            </div>
+            </form>
           </div>
         </div>
         <main className="px-7 py-9 pb-20 lg:px-24">

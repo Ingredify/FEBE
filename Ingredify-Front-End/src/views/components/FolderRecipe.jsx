@@ -1,57 +1,99 @@
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 
-const FolderRecipe = () => {
+const FolderRecipe = ({ collection, onDelete, onEdit }) => {
+  const [isEditing, setIsEditing] = useState(false);
+  const [name, setName] = useState(collection.name);
+  const [description, setDescription] = useState(collection.description || '');
+
   const handleTrashClick = (e) => {
     e.preventDefault();
     e.stopPropagation();
-    alert('Delete clicked');
+    onDelete(collection.id);
+  };
+
+  const handleEditClick = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setIsEditing(true);
+  };
+
+  const handleSubmitEdit = (e) => {
+    e.preventDefault();
+    onEdit(collection.id, name, description, () => setIsEditing(false));
   };
 
   return (
-    <Link
-      to={'/home'}
-      className="collection-shadow hover:outline-light-green z-10 flex cursor-pointer items-center rounded-lg bg-white px-4 py-3 hover:outline-2"
-    >
-      <div className="flex items-center justify-center rounded-full bg-red-600 p-2 text-white">
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          fill="none"
-          stroke="currentColor"
-          viewBox="0 0 24 24"
-          strokeWidth={1.7}
-          className="size-8"
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12Z"
-          />
-        </svg>
-      </div>
-      <div className="ml-3.5 flex w-full items-center justify-between">
-        <div>
-          <p className="text-sm font-semibold hover:underline">Favorite 1</p>
-          <p className="text-xs">Favorite 1 Description</p>
-          <p className="text-custom-gray text-xs">3 Recipes</p>
-        </div>
-        <button onClick={handleTrashClick} className="h-fit cursor-pointer hover:text-red-600">
+    <>
+      <Link
+        to={`/collections/${collection.id}`}
+        className="collection-shadow hover:outline-light-green z-10 flex cursor-pointer items-center rounded-lg bg-white px-4 py-3 hover:outline-2"
+      >
+        <div className="flex items-center justify-center rounded-full bg-red-600 p-2 text-white">
           <svg
-            xmlns="http://www.w3.org/2000/svg"
+            className="size-8"
             fill="none"
-            viewBox="0 0 24 24"
-            strokeWidth="1.5"
             stroke="currentColor"
-            className="size-5"
+            viewBox="0 0 24 24"
+            strokeWidth={1.7}
           >
             <path
               strokeLinecap="round"
               strokeLinejoin="round"
-              d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0"
+              d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12Z"
             />
           </svg>
-        </button>
-      </div>
-    </Link>
+        </div>
+        <div className="ml-3.5 flex w-full items-center justify-between">
+          <div>
+            <p className="text-sm font-semibold hover:underline">{collection.name}</p>
+            <p className="text-xs">{collection.description || 'No description'}</p>
+          </div>
+          <div className="flex gap-2">
+            <button onClick={handleEditClick} className="hover:text-blue-500">
+              <i class="fa-solid fa-pencil"></i>
+            </button>
+            <button onClick={handleTrashClick} className="hover:text-red-600">
+              🗑️
+            </button>
+          </div>
+        </div>
+      </Link>
+
+      {isEditing && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 px-4">
+          <div className="w-full max-w-md rounded-xl bg-white p-6">
+            <h2 className="mb-3 text-lg font-semibold">Edit Collection</h2>
+            <form onSubmit={handleSubmitEdit} className="flex flex-col gap-4">
+              <input
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                placeholder="Collection Name"
+                className="rounded border px-3 py-2"
+              />
+              <textarea
+                value={description}
+                onChange={(e) => setDescription(e.target.value)}
+                placeholder="Description"
+                className="rounded border px-3 py-2"
+              />
+              <div className="flex justify-end gap-3">
+                <button
+                  type="button"
+                  onClick={() => setIsEditing(false)}
+                  className="text-sm text-gray-500"
+                >
+                  Cancel
+                </button>
+                <button type="submit" className="bg-light-green rounded px-4 py-2 text-white">
+                  Save
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
+    </>
   );
 };
 

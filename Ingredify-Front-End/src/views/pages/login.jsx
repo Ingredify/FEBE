@@ -34,9 +34,9 @@ const LoginPage = () => {
   };
 
   return (
-    <section className="bg-[url('./img/bg-img2.jpg')] bg-cover">
+    <section className="bg-[url('/img/bg-img2.jpg')] bg-cover">
       <div className="absolute top-3 left-6 flex items-center gap-0.5">
-        <img src="./img/logo.png" alt="logo ingredify" className="w-7 lg:w-9" />
+        <img src="/img/logo.png" alt="logo ingredify" className="w-7 lg:w-9" />
         <p className="text-dark-green text-sm font-semibold md:text-base lg:text-lg">Ingredify</p>
       </div>
 

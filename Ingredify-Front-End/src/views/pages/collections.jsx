@@ -4,9 +4,55 @@ import { useEffect, useState } from 'react';
 import Footer from '../components/Footer';
 import Navbar from '../components/Navbar';
 import BackgroundImgFood from '../elements/BackgroundImgFood';
+import {
+  fetchUserCollections,
+  handleDeleteCollection,
+  handleEditCollection,
+} from '../../presenter/CollectionPresenter';
 
 const CollectionsPage = () => {
   const [showModal, setShowModal] = useState(false);
+  const [collections, setCollections] = useState([]);
+  const [error, setError] = useState('');
+
+  useEffect(() => {
+    fetchUserCollections(setCollections, setError);
+  }, []);
+
+  const handleCollectionCreated = () => {
+    fetchUserCollections(setCollections, setError);
+    setShowModal(false);
+  };
+
+  const handleDelete = (collectionId) => {
+    const confirmed = window.confirm('Are you sure you want to delete this collection?');
+    if (!confirmed) return;
+
+    handleDeleteCollection(
+      collectionId,
+      () => fetchUserCollections(setCollections, setError), // refresh list
+      (err) => {
+        console.error('Failed to delete:', err);
+        alert('Delete failed');
+      },
+    );
+  };
+
+  const handleEdit = (collectionId, newName, newDescription, onCloseModal) => {
+    handleEditCollection(
+      collectionId,
+      newName,
+      newDescription,
+      () => {
+        fetchUserCollections(setCollections, setError);
+        onCloseModal?.();
+      },
+      (err) => {
+        console.error('Failed to edit:', err);
+        alert('Edit failed');
+      },
+    );
+  };
 
   return (
     <section className="font-montserrat relative flex min-h-screen flex-col bg-[#F7F9FA]">
@@ -23,20 +69,21 @@ const CollectionsPage = () => {
         </div>
         <div className="flex">
           <div className="form-collections top-20 z-10 mr-5 hidden h-fit w-1/3 rounded-2xl bg-white px-6 py-4 lg:sticky lg:block">
-            <AddNewCollection />
+            <AddNewCollection onSuccess={handleCollectionCreated} />
           </div>
           <div className="grid w-full grid-cols-1 gap-5 md:grid-cols-3">
-            <FolderRecipe />
-            <FolderRecipe />
-            <FolderRecipe />
-            <FolderRecipe />
-            <FolderRecipe />
-            <FolderRecipe />
-            <FolderRecipe />
-            <FolderRecipe />
-            <FolderRecipe />
-            <FolderRecipe />
-            <FolderRecipe />
+            {collections.length === 0 ? (
+              <p className="text-sm text-gray-400">No collections yet.</p>
+            ) : (
+              collections.map((col) => (
+                <FolderRecipe
+                  key={col.id}
+                  collection={col}
+                  onDelete={handleDelete}
+                  onEdit={handleEdit}
+                />
+              ))
+            )}
           </div>
         </div>
       </div>
@@ -50,7 +97,7 @@ const CollectionsPage = () => {
             >
               ✕
             </button>
-            <AddNewCollection />
+            <AddNewCollection onSuccess={handleCollectionCreated} />
           </div>
         </div>
       )}
