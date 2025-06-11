@@ -49,13 +49,27 @@ const getCollectionHandler = async (request, h) => {
       where: { userId: user.id },
       select: {
         name: true,
+        description: true,
         id: true,
         createdAt: true,
+        _count: {
+          select: {
+            CollectionRecipe: true,
+          },
+        },
       },
     });
+
+    const userCollectionWithRecipeCount = userCollection.map((collection) => ({
+      id: collection.id,
+      name: collection.name,
+      description: collection.description,
+      createdAt: collection.createdAt,
+      recipeCount: collection._count.CollectionRecipes,
+    }));
     const response = h.response({
       status: 'success',
-      data: userCollection,
+      data: userCollectionWithRecipeCount,
     });
     response.code(200);
     return response;
@@ -295,15 +309,15 @@ const getCollectionRecipesHandler = async (request, h) => {
       },
       select: {
         id: true,
-        
+
         recipe: {
           select: {
             id: true,
             name: true,
             image: true,
           },
-        }
-      }
+        },
+      },
     });
 
     return h.response({
@@ -350,7 +364,7 @@ const removeRecipeFromCollectionHandler = async (request, h) => {
       response.code(404);
       return response;
     }
-    
+
     const recipe = await prisma.recipe.findUnique({
       where: { id: Number(recipeId) },
     });
