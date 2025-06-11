@@ -50,7 +50,7 @@ const getRecipeByIdHandler = async (request, h) => {
   const { id } = request.params;
   try {
     const recipe = await prisma.recipe.findUnique({
-      where: { foodId: (id) },
+      where: { foodId: id },
     });
 
     if (!recipe) {
@@ -226,10 +226,10 @@ const removeRatingHandler = async (request, h) => {
 
 const averageRatingHandler = async (request, h) => {
   const { id } = request.params;
-
+  console.log(id);
   try {
     const recipe = await prisma.recipe.findUnique({
-      where: { id: Number(id) },
+      where: { foodId: id },
     });
 
     if (!recipe) {
@@ -242,7 +242,7 @@ const averageRatingHandler = async (request, h) => {
     }
 
     const ratings = await prisma.rating.findMany({
-      where: { recipeId: Number(id) },
+      where: { recipeId: recipe.id },
     });
 
     const averageRating =
