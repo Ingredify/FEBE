@@ -50,7 +50,7 @@ const getRecipeByIdHandler = async (request, h) => {
   const { id } = request.params;
   try {
     const recipe = await prisma.recipe.findUnique({
-      where: { id: Number(id) },
+      where: { recipeId: id },
     });
 
     if (!recipe) {
