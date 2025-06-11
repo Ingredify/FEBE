@@ -80,6 +80,7 @@ const loginHandler = async (request, h) => {
       error: false,
       message: 'Login success',
       token,
+      username: user.name,
     });
     response.code(200);
     console.log(`${user.name} logged in`); //! Cmn buat keliatan aja
