@@ -259,7 +259,10 @@ const averageRatingHandler = async (request, h) => {
     }
     const response = h.response({
       status: 'success',
-      data: averageRating,
+      data: {
+        averageRating: averageRating,
+        totalRating: ratings.length,
+      },
     });
     response.code(200);
     return response;
