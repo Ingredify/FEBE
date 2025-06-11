@@ -315,6 +315,7 @@ const getCollectionRecipesHandler = async (request, h) => {
             id: true,
             name: true,
             image: true,
+            foodId: true,
           },
         },
       },
