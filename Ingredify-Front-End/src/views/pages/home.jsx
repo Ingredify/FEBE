@@ -1,13 +1,40 @@
-import { useState } from 'react';
+// import { useState } from 'react';
 import Navbar from '../components/Navbar';
 import Sidebar from '../components/Sidebar';
 import FoodCard2 from '../components/FoodCard2';
 import Footer from '../components/Footer';
 import MenuButton from '../elements/MenuButton';
 import BackgroundImgFood from '../elements/BackgroundImgFood';
+import { fetchAllRecipes, fetchHomeRecommendedRecipes } from '../../presenter/HomePresenter';
+import { useEffect, useState } from 'react';
+import Pagination from '../components/Pagination';
+import { getToken } from '../../models/AuthModel';
 
 const HomePage = () => {
-  const [showSidebar, setShowSidebar] = useState(false);
+  // const [showSidebar, setShowSidebar] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [recipes, setRecipes] = useState([]);
+  const [allRecipes, setAllRecipes] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
+  const [allLoading, setAllLoading] = useState(false);
+  const [allError, setAllError] = useState('');
+  const [page, setPage] = useState(1);
+  const [meta, setMeta] = useState({ totalPages: 1, totalRecipes: 0 });
+  const limit = 10;
+
+  useEffect(() => {
+    const token = getToken();
+    setIsLoggedIn(!!token);
+  }, []);
+
+  useEffect(() => {
+    fetchHomeRecommendedRecipes(setRecipes, setLoading, setError);
+  }, []);
+
+  useEffect(() => {
+    fetchAllRecipes(setAllRecipes, setAllLoading, setAllError, page, limit, setMeta);
+  }, [page]);
 
   return (
     <section className="font-montserrat relative overflow-visible">
@@ -34,31 +61,47 @@ const HomePage = () => {
             </div>
           </div>
         </div>
-        <main className="flex flex-col px-7 py-9 pb-20 lg:px-24">
+        <main className="px-7 py-9 pb-20 lg:px-24">
           {/* <Sidebar show={showSidebar} setShowSidebar={setShowSidebar} /> */}
-          <h2 className="text-custom-black mb-4 text-xl font-semibold">Recommended Recipes</h2>
-          <div className="grid w-full grid-cols-1 gap-5 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
-            <FoodCard2 />
-            <FoodCard2 />
-            <FoodCard2 />
-            <FoodCard2 />
-            <FoodCard2 />
+          {isLoggedIn && (
+            <div className="mb-12 flex flex-col">
+              <h2 className="text-custom-black mb-4 text-xl font-semibold">Recommended Recipes</h2>
+              {loading && <p className="text-gray-500">Loading recipes...</p>}
+              {error && <p className="text-red-500">Error: {error}</p>}
 
-            <FoodCard2 />
-            <FoodCard2 />
-            <FoodCard2 />
-            <FoodCard2 />
-            <FoodCard2 />
-            <FoodCard2 />
-            <FoodCard2 />
-            <FoodCard2 />
-            <FoodCard2 />
-            <FoodCard2 />
-            <FoodCard2 />
-            <FoodCard2 />
-            <FoodCard2 />
-            <FoodCard2 />
-            <FoodCard2 />
+              <div className="grid w-full grid-cols-1 gap-5 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
+                {recipes.map((recipe) => (
+                  <FoodCard2 key={recipe.food_id} recipe={recipe} />
+                ))}
+              </div>
+            </div>
+          )}
+
+          <div className="flex flex-col">
+            <h2 className="text-custom-black mb-4 text-xl font-semibold">All Recipes</h2>
+            {allLoading && <p className="text-gray-500">Loading recipes...</p>}
+            {allError && <p className="text-red-500">Error: {allError}</p>}
+
+            <div className="grid w-full grid-cols-1 gap-5 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
+              {allRecipes.map((recipe) => (
+                <FoodCard2 key={recipe.id} recipe={recipe} />
+              ))}
+            </div>
+          </div>
+          <div className="mt-5 flex items-center justify-between border-t border-gray-200 bg-white">
+            <div className="mt-3 flex flex-1 flex-col items-center justify-between md:flex-row">
+              <div className="flex gap-2 text-sm text-gray-700">
+                Showing
+                <p className="text-light-green font-semibold">Page {page}</p>
+                of
+                <p className="text-light-green font-semibold">{meta.totalPages}</p>
+                results
+              </div>
+
+              <div>
+                <Pagination page={page} setPage={setPage} totalPages={meta.totalPages} />
+              </div>
+            </div>
           </div>
         </main>
       </div>

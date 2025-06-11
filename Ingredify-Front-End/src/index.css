@@ -20,7 +20,7 @@
 }
 
 .img-background {
-  background-image: url('./img/bgi-img.png');
+  background-image: url('/img/bgi-img.png');
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
