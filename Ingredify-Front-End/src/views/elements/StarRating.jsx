@@ -42,10 +42,7 @@ const StarRating = ({
             onClick={() => handleClick(i)}
           ></i>
         );
-      })}{' '}
-      {editable && selectedRating !== null && (
-        <span className="text-custom-black ml-1.5">({selectedRating})</span>
-      )}
+      })}
     </div>
   );
 };

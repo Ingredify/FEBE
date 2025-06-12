@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 const FolderRecipe = ({ collection, onDelete, onEdit }) => {
   const [isEditing, setIsEditing] = useState(false);
   const [name, setName] = useState(collection.name);
-  const [description, setDescription] = useState(collection.description || '');
+  const [description, setDescription] = useState(collection.description);
 
   const handleTrashClick = (e) => {
     e.preventDefault();
@@ -48,13 +48,14 @@ const FolderRecipe = ({ collection, onDelete, onEdit }) => {
           <div>
             <p className="text-sm font-semibold hover:underline">{collection.name}</p>
             <p className="text-xs">{collection.description || 'No description'}</p>
+            <p className="text-xs text-gray-500">{collection.recipeCount} recipes</p>
           </div>
           <div className="flex gap-2">
             <button onClick={handleEditClick} className="hover:text-blue-500">
-              <i class="fa-solid fa-pencil"></i>
+              <i className="fa-solid fa-pencil"></i>
             </button>
             <button onClick={handleTrashClick} className="hover:text-red-600">
-              🗑️
+              <i className="fa-solid fa-trash"></i>
             </button>
           </div>
         </div>

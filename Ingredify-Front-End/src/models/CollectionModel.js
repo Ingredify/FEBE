@@ -96,3 +96,21 @@ export const deleteCollection = async (collectionId, token) => {
     throw error;
   }
 };
+
+export const removeRecipeFromCollection = async (collectionId, recipeId, token) => {
+  const payload = { collectionId, recipeId };
+  console.log('Payload:', payload);
+
+  try {
+    const response = await axios.delete(`${BASE_URL}/collection/recipe`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+      data: payload,
+    });
+    return response.data;
+  } catch (error) {
+    console.error('Error in removeRecipeFromCollection:', error.response?.data || error.message);
+    throw error;
+  }
+};

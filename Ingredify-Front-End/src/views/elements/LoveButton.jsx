@@ -2,7 +2,7 @@ import { useState } from 'react';
 import FolderRecipe from '../components/FolderRecipe';
 import SavedToCollection from '../components/SavedToCollection';
 
-const LoveButton = ({ liked, onToggle }) => {
+const LoveButton = ({ liked, onToggle, recipeId }) => {
   const [showSelect, setShowSelect] = useState(false);
   const [selectedFolder, setSelectedFolder] = useState('');
 
@@ -14,11 +14,11 @@ const LoveButton = ({ liked, onToggle }) => {
     }
   };
 
-  const handleSave = () => {
-    if (selectedFolder) {
-      setShowSelect(false);
-    }
-  };
+  // const handleSave = () => {
+  //   if (selectedFolder) {
+  //     setShowSelect(false);
+  //   }
+  // };
 
   return (
     <div className="relative">
@@ -47,9 +47,10 @@ const LoveButton = ({ liked, onToggle }) => {
       {showSelect && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40">
           <SavedToCollection
+            recipeId={recipeId}
             handleSave={() => {
-              handleSave();
-              onToggle(); // Ubah jadi liked
+              // handleSave();
+              onToggle();
             }}
             onClose={() => setShowSelect(false)}
           />

@@ -6,6 +6,7 @@ import {
   deleteCollection,
   addRecipeToCollection,
   getRecipeInCollection,
+  removeRecipeFromCollection,
 } from '../models/CollectionModel';
 import { getToken } from '../models/AuthModel';
 
@@ -76,5 +77,17 @@ export const fetchRecipesInCollection = async (collectionId, setRecipes, setErro
     setRecipes(response.data);
   } catch (err) {
     setError?.(err.message || 'Failed to fetch recipes in collection');
+  }
+};
+
+export const deleteRecipeFromCollection = async (collectionId, recipeId, setRecipes, setError) => {
+  try {
+    const token = getToken();
+    await removeRecipeFromCollection(collectionId, recipeId, token);
+
+    // Hapus dari state lokal (frontend)
+    setRecipes((prev) => prev.filter((r) => r.foodId !== recipeId));
+  } catch (error) {
+    setError?.(error.message || 'Failed to delete recipe from collection');
   }
 };
