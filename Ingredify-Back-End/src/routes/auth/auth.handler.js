@@ -26,14 +26,13 @@ const registerHandler = async (request, h) => {
 
   try {
     const hashedPassword = await bcrypt.hash(password, 10);
-    const newUser = await prisma.user.create({
+    await prisma.user.create({
       data: {
         email: email,
         name: name,
         password: hashedPassword,
       },
     });
-    console.log(newUser); //! Cmn buat keliatan aja
     const response = h.response({
       error: false,
       message: 'user created',
@@ -83,10 +82,9 @@ const loginHandler = async (request, h) => {
       user: {
         name: user.name,
         email: user.email,
-      }
+      },
     });
     response.code(200);
-    console.log(`${user.name} logged in`); //! Cmn buat keliatan aja
     return response;
   } catch (error) {
     console.log(error);
@@ -101,5 +99,5 @@ const loginHandler = async (request, h) => {
 
 module.exports = {
   loginHandler,
-  registerHandler
+  registerHandler,
 };

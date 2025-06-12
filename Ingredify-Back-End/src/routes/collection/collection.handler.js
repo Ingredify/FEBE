@@ -43,7 +43,6 @@ const addCollectionHandler = async (request, h) => {
 
 const getCollectionHandler = async (request, h) => {
   const user = request.auth.credentials;
-  console.log('getCollectionHandler triggered');
   try {
     const userCollection = await prisma.collection.findMany({
       where: { userId: user.id },
@@ -87,7 +86,6 @@ const getCollectionHandler = async (request, h) => {
 const getCollectionByIdHandler = async (request, h) => {
   const user = request.auth.credentials;
   const { id } = request.params;
-  console.log('getCollectionByIdHandler triggered');
   try {
     const collection = await prisma.collection.findFirst({
       where: {
@@ -196,11 +194,19 @@ const removeCollectionHandler = async (request, h) => {
       response.code(404);
       return response;
     }
+
+    await prisma.collectionRecipe.deleteMany({
+      where: {
+        collectionId: Number(id),
+      },
+    });
+
     await prisma.collection.delete({
       where: {
         id: Number(id),
       },
     });
+    
     const response = h.response({
       status: 'success',
       message: 'Collection deleted successfully',
