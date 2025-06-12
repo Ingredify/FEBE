@@ -102,6 +102,53 @@ export default defineConfig({
           },
         ],
       },
+      workbox: {
+        runtimeCaching: [
+          {
+            urlPattern: /^https:\/\/fonts\.googleapis\.com\/.*/i,
+            handler: 'CacheFirst',
+            options: {
+              cacheName: 'google-fonts',
+              expiration: {
+                maxEntries: 10,
+                maxAgeSeconds: 60 * 60 * 24 * 365, // <== 365 days
+              },
+              cacheableResponse: {
+                statuses: [0, 200],
+              },
+            },
+          },
+          {
+            urlPattern: /^https:\/\/res\.cloudinary\.com\/dqmwlzgpe\/.*/i,
+            handler: 'CacheFirst',
+            options: {
+              cacheName: 'cloudinary-images',
+              expiration: {
+                maxEntries: 100,
+                maxAgeSeconds: 60 * 60 * 24 * 30,
+              },
+              cacheableResponse: {
+                statuses: [0, 200],
+              },
+            },
+          },
+          {
+            urlPattern: /^https:\/\/febe\.onrender\.com\/.*/i,
+            handler: 'NetworkFirst',
+            options: {
+              cacheName: 'ingredify-api-cache',
+              networkTimeoutSeconds: 10,
+              expiration: {
+                maxEntries: 100,
+                maxAgeSeconds: 60 * 60 * 24 * 7,
+              },
+              cacheableResponse: {
+                statuses: [0, 200],
+              },
+            },
+          },
+        ],
+      },
     }),
   ],
 });
