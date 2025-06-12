@@ -206,7 +206,6 @@ const removeRatingHandler = async (request, h) => {
         },
       },
     });
-    console.log(`Rating deleted for user ${user.id} on recipe ${id}`);
     const response = h.response({
       status: 'success',
       message: 'Rating deleted successfully',
@@ -226,7 +225,6 @@ const removeRatingHandler = async (request, h) => {
 
 const averageRatingHandler = async (request, h) => {
   const { id } = request.params;
-  console.log(id);
   try {
     const recipe = await prisma.recipe.findUnique({
       where: { foodId: id },
