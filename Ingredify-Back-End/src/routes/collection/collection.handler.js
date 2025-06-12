@@ -194,11 +194,19 @@ const removeCollectionHandler = async (request, h) => {
       response.code(404);
       return response;
     }
+
+    await prisma.collectionRecipe.deleteMany({
+      where: {
+        collectionId: Number(id),
+      },
+    });
+
     await prisma.collection.delete({
       where: {
         id: Number(id),
       },
     });
+    
     const response = h.response({
       status: 'success',
       message: 'Collection deleted successfully',

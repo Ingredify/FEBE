@@ -249,10 +249,14 @@ const averageRatingHandler = async (request, h) => {
 
     if (ratings.length === 0) {
       const response = h.response({
-        status: 'fail',
-        message: 'No ratings found for this recipe',
+        status: 'success',
+        data: {
+          averageRating: 0,
+          totalRating: 0,
+          message: 'No ratings available for this recipe',
+        },
       });
-      response.code(404);
+      response.code(200);
       return response;
     }
     const response = h.response({
