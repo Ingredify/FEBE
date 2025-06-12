@@ -98,10 +98,7 @@ export const deleteCollection = async (collectionId, token) => {
 };
 
 export const removeRecipeFromCollection = async (collectionId, recipeId, token) => {
-  const payload = {
-    collection_id: collectionId,
-    food_id: recipeId,
-  };
+  const payload = { collectionId, recipeId };
   console.log('Payload:', payload);
 
   try {

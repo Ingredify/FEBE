@@ -25,7 +25,6 @@ export const postUserRecipeRating = async (recipeId, rating) => {
           Authorization: `Bearer ${token}`,
         },
       },
-      console.log('Posting rating', rating, 'ke recipe id', recipeId, 'dengan token:', token),
     );
     return response.data.data;
   } catch (error) {

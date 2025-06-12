@@ -14,11 +14,11 @@ const LoveButton = ({ liked, onToggle, recipeId }) => {
     }
   };
 
-  const handleSave = () => {
-    if (selectedFolder) {
-      setShowSelect(false);
-    }
-  };
+  // const handleSave = () => {
+  //   if (selectedFolder) {
+  //     setShowSelect(false);
+  //   }
+  // };
 
   return (
     <div className="relative">
@@ -49,8 +49,8 @@ const LoveButton = ({ liked, onToggle, recipeId }) => {
           <SavedToCollection
             recipeId={recipeId}
             handleSave={() => {
-              handleSave();
-              onToggle(); // Ubah jadi liked
+              // handleSave();
+              onToggle();
             }}
             onClose={() => setShowSelect(false)}
           />

@@ -14,6 +14,7 @@ import {
   fetchUserRecipeRating,
 } from '../../presenter/DetailPresenter';
 import BackButton from '../elements/BackButton';
+import DetailPageSkeleton from '../components/DetailPageSkeleton';
 
 const DetailRecipePage = () => {
   const [yourRating, setYourRating] = useState(0);
@@ -56,11 +57,11 @@ const DetailRecipePage = () => {
     );
   };
   return (
-    <section className="relative w-full overflow-visible">
+    <section className="relative flex min-h-screen w-full flex-col overflow-visible">
       <Navbar />
-      <div className="mt-7 flex px-7 py-9 lg:px-24">
+      <div className="mt-7 flex flex-grow px-7 py-9 lg:px-24">
         {loading ? (
-          <p className="mt-20 w-full animate-spin text-center">Loading...</p>
+          <DetailPageSkeleton />
         ) : error ? (
           <p className="mt-20 w-full text-center text-red-500">Error: {error}</p>
         ) : !recipe ? (

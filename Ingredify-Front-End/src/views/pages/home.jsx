@@ -11,6 +11,7 @@ import Pagination from '../components/Pagination';
 import { getToken } from '../../models/AuthModel';
 import { useNavigate } from 'react-router-dom';
 import SavedToCollection from '../components/SavedToCollection';
+import FoodCardSkeleton from '../components/FoodCardSkeleton';
 
 const HomePage = () => {
   // const [showSidebar, setShowSidebar] = useState(false);
@@ -84,7 +85,13 @@ const HomePage = () => {
           {isLoggedIn && (
             <div className="mb-12 flex flex-col">
               <h2 className="text-custom-black mb-4 text-xl font-semibold">Recommended Recipes</h2>
-              {loading && <p className="text-gray-500">Loading recipes...</p>}
+              {loading && (
+                <div className="grid w-full grid-cols-1 gap-5 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
+                  {[...Array(5)].map((_, idx) => (
+                    <FoodCardSkeleton key={idx} />
+                  ))}
+                </div>
+              )}
               {error && <p className="text-red-500">Error: {error}</p>}
 
               <div className="grid w-full grid-cols-1 gap-5 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
@@ -97,7 +104,13 @@ const HomePage = () => {
 
           <div className="flex flex-col">
             <h2 className="text-custom-black mb-4 text-xl font-semibold">All Recipes</h2>
-            {allLoading && <p className="text-gray-500">Loading recipes...</p>}
+            {allLoading && (
+              <div className="grid w-full grid-cols-1 gap-5 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
+                {[...Array(10)].map((_, idx) => (
+                  <FoodCardSkeleton key={idx} />
+                ))}
+              </div>
+            )}
             {allError && <p className="text-red-500">Error: {allError}</p>}
 
             <div className="grid w-full grid-cols-1 gap-5 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">

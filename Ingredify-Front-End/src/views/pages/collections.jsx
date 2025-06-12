@@ -9,11 +9,23 @@ import {
   handleDeleteCollection,
   handleEditCollection,
 } from '../../presenter/CollectionPresenter';
+import FolderRecipeSkeleton from '../components/FolderRecipeSkeleton';
 
 const CollectionsPage = () => {
   const [showModal, setShowModal] = useState(false);
   const [collections, setCollections] = useState([]);
   const [error, setError] = useState('');
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const loadCollections = async () => {
+      setLoading(true);
+      await fetchUserCollections(setCollections, setError);
+      setLoading(false);
+    };
+
+    loadCollections();
+  }, []);
 
   useEffect(() => {
     fetchUserCollections(setCollections, setError);
@@ -30,7 +42,8 @@ const CollectionsPage = () => {
 
     handleDeleteCollection(
       collectionId,
-      () => fetchUserCollections(setCollections, setError), // refresh list
+      console.log(collectionId),
+      () => fetchUserCollections(setCollections, setError),
       (err) => {
         console.error('Failed to delete:', err);
         alert('Delete failed');
@@ -45,6 +58,7 @@ const CollectionsPage = () => {
       newDescription,
       () => {
         fetchUserCollections(setCollections, setError);
+        alert('Edit successful');
         onCloseModal?.();
       },
       (err) => {
@@ -72,7 +86,9 @@ const CollectionsPage = () => {
             <AddNewCollection onSuccess={handleCollectionCreated} />
           </div>
           <div className="grid h-21 w-full grid-cols-1 gap-5 md:grid-cols-3">
-            {collections.length === 0 ? (
+            {loading ? (
+              [...Array(6)].map((_, i) => <FolderRecipeSkeleton key={i} />)
+            ) : collections.length === 0 ? (
               <p className="text-sm text-gray-400">No collections yet.</p>
             ) : (
               collections.map((col) => (

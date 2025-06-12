@@ -24,6 +24,7 @@ const AddNewCollection = ({ onSuccess }) => {
       dataCollection,
       () => {
         setLoading(false);
+        alert('Collection created successfully');
         onSuccess?.();
       },
       (err) => {

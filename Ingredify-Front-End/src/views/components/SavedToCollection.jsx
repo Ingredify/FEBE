@@ -16,13 +16,12 @@ const SavedToCollection = ({ recipeId, handleSave, onClose }) => {
   const onSave = () => {
     if (!selectedFolder) return;
 
-    console.log('Selected Collection ID:', selectedFolder);
-    console.log('Recipe ID to save:', recipeId);
     handleAddRecipeToCollection(
       selectedFolder,
       recipeId,
       () => {
         handleSave();
+        alert('Saved successfully');
         onClose();
       },
       (err) => {
