@@ -7,7 +7,6 @@ const BASE_URL = CONFIG.BASE_URL;
 export const getRecipeAverageRating = async (recipeId) => {
   try {
     const response = await axios.get(`${BASE_URL}/recipe/${recipeId}/average-rating`);
-    console.log('Average rating:', response.data);
     return response.data.data;
   } catch (error) {
     throw error.response?.data?.message || 'Failed to get average rating.';

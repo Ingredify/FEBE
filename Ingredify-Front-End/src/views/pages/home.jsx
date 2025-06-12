@@ -27,7 +27,6 @@ const HomePage = () => {
   const limit = 10;
   const navigate = useNavigate();
   const [searchInput, setSearchInput] = useState('');
-  const [showSaveModal, setShowSaveModal] = useState(false);
 
   useEffect(() => {
     const token = getToken();
