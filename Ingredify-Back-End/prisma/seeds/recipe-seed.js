@@ -4,10 +4,8 @@ const process = require('process');
 const fs = require('fs');
 const path = require('path');
 
-
-
 async function main() {
-  const filePath = path.join(__dirname, 'seeds-data', 'recipe.json');
+  const filePath = path.join(__dirname, 'seeds-data', 'recipes-all.json');
   const jsonData = fs.readFileSync(filePath, 'utf8');
   const recipes = JSON.parse(jsonData);
 
@@ -17,7 +15,7 @@ async function main() {
         name: recipe.name,
         ingredients: recipe.ingredients,
         instructions: recipe.instructions,
-        image: recipe.imageUrl, // map imageUrl to image field
+        image: recipe.image, // map imageUrl to image field
         foodId: recipe.foodId,
       },
     });

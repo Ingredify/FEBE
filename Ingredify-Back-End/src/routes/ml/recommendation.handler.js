@@ -17,9 +17,9 @@ const getRecommendationHandler = async (request, h) => {
     }
     const rawData = await recommendation.json();
     const filteredData = rawData.map(({ food_id, title, image_name }) => ({
-      food_id,
-      food_name: title,
-      image_url: `${CLOUD_STORAGE_URL}/${image_name}`,
+      foodId:food_id,
+      name: title,
+      image: `${CLOUD_STORAGE_URL}/${image_name}`,
     }));
 
     //Permintaan tim ML
