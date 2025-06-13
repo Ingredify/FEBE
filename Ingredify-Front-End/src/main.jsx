@@ -13,6 +13,7 @@ import LoginPage from './views/pages/login.jsx';
 import RegisterPage from './views/pages/register.jsx';
 import SearchResultPage from './views/pages/search-result.jsx';
 import CollectionDetailPage from './views/pages/collection-detail.jsx';
+import RequireAuth from './views/components/RequireAuth.jsx';
 
 const router = createBrowserRouter([
   {
@@ -42,7 +43,11 @@ const router = createBrowserRouter([
       },
       {
         path: 'collections',
-        element: <CollectionsPage />,
+        element: (
+          <RequireAuth>
+            <CollectionsPage />
+          </RequireAuth>
+        ),
       },
       {
         path: '/about',
@@ -54,7 +59,11 @@ const router = createBrowserRouter([
       },
       {
         path: '/collections/:id',
-        element: <CollectionDetailPage />,
+        element: (
+          <RequireAuth>
+            <CollectionDetailPage />
+          </RequireAuth>
+        ),
       },
     ],
   },
