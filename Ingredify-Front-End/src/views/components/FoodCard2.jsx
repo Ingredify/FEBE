@@ -33,8 +33,11 @@ const FoodCard2 = ({ recipe }) => {
         </p>
 
         <div className="mt-2.5 flex justify-between">
-          <StarRating rating={averageRating} starSize={'text-lg'} />
-          <span className="text-xs text-gray-500">({totalRating})</span>
+          <div className="flex items-center gap-2">
+            <StarRating rating={averageRating} starSize={'text-sm'} />
+
+            <span className="text-xs text-gray-500">({totalRating})</span>
+          </div>
           <Link
             to={`/recipe/${recipe.food_id || recipe.foodId}`}
             className="text-light-green hover:text-dark-green flex cursor-pointer items-center gap-2 rounded-lg text-xs font-semibold lg:text-xs"

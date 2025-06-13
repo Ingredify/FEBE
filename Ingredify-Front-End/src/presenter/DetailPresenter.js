@@ -1,10 +1,11 @@
 // presenter/detailPresenter.js
+import { getToken } from '../models/AuthModel';
 import {
   getRecipeAverageRating,
   postUserRecipeRating,
   getUserRecipeRating,
 } from '../models/RatingModel';
-import { getRecipeDetail } from '../models/RecipeModel';
+import { getRecipeDetail, getSimilarRecipe } from '../models/RecipeModel';
 
 export async function fetchRecipeDetail(setRecipe, setLoading, setError, foodId) {
   try {
@@ -47,5 +48,16 @@ export const fetchUserRecipeRating = async (recipeId, setYourRating) => {
   } catch (error) {
     console.error('Gagal ambil rating user:', error);
     setYourRating(0);
+  }
+};
+
+export const fetchSimilarRecipe = async (foodId, setSimilarRecipe) => {
+  const token = getToken();
+  try {
+    const response = await getSimilarRecipe(foodId, token);
+    setSimilarRecipe(response.data || []);
+  } catch (error) {
+    console.error('Gagal ambil resep similar:', error);
+    setSimilarRecipe([]);
   }
 };

@@ -12,9 +12,13 @@ import {
   fetchRecipeRating,
   submitUserRating,
   fetchUserRecipeRating,
+  fetchSimilarRecipe,
 } from '../../presenter/DetailPresenter';
 import BackButton from '../elements/BackButton';
 import DetailPageSkeleton from '../components/DetailPageSkeleton';
+import FoodCard2 from '../components/FoodCard2';
+import { getToken } from '../../models/AuthModel';
+import FoodCardSkeleton from '../components/FoodCardSkeleton';
 
 const DetailRecipePage = () => {
   const [yourRating, setYourRating] = useState(0);
@@ -25,9 +29,17 @@ const DetailRecipePage = () => {
   const [error, setError] = useState('');
   const [averageRating, setAverageRating] = useState(null);
   const [totalRating, setTotalRating] = useState(0);
+  const [similarRecipe, setSimilarRecipe] = useState([]);
+  const [similarLoading, setSimilarLoading] = useState(false); // ⬅️ baru
+  const [isLoggedIn, setIsLoggedIn] = useState(false); //
 
   const [ratingError, setRatingError] = useState('');
   const [submitting, setSubmitting] = useState(false);
+
+  useEffect(() => {
+    const token = getToken();
+    setIsLoggedIn(!!token);
+  }, []);
 
   useEffect(() => {
     if (id) {
@@ -41,6 +53,16 @@ const DetailRecipePage = () => {
       fetchUserRecipeRating(recipe.id, setYourRating);
     }
   }, [recipe]);
+
+  useEffect(() => {
+    if (recipe?.id && isLoggedIn) {
+      setSimilarLoading(true);
+      fetchSimilarRecipe(recipe.foodId, (data) => {
+        setSimilarRecipe(data);
+        setSimilarLoading(false);
+      });
+    }
+  }, [recipe, isLoggedIn]);
 
   const handleRatingChange = (newRating) => {
     setYourRating(newRating);
@@ -143,6 +165,28 @@ const DetailRecipePage = () => {
         )}
       </div>
 
+      {/* Bagian Similar Recipe */}
+      {isLoggedIn && (
+        <div className="mt-7 flex flex-grow flex-col px-7 py-9 lg:px-24">
+          <h2 className="text-custom-black mb-3 text-lg font-semibold">Similar Recipes</h2>
+
+          {similarLoading ? (
+            <div className="grid w-full grid-cols-1 gap-5 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
+              {[...Array(5)].map((_, idx) => (
+                <FoodCardSkeleton key={idx} />
+              ))}
+            </div>
+          ) : similarRecipe.length === 0 ? (
+            <p className="text-sm text-gray-500">No similar recipes found.</p>
+          ) : (
+            <div className="grid w-full grid-cols-1 gap-5 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
+              {similarRecipe.map((recipe) => (
+                <FoodCard2 key={recipe.foodId} recipe={recipe} />
+              ))}
+            </div>
+          )}
+        </div>
+      )}
       {/* <MenuButton showSidebar={showSidebar} setShowSidebar={setShowSidebar} /> */}
       <BackgroundImgFood />
       <Footer />
