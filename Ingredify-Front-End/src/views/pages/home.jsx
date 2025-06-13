@@ -85,7 +85,7 @@ const HomePage = () => {
             <div className="mb-12 flex flex-col">
               <h2 className="text-custom-black mb-4 text-xl font-semibold">Recommended Recipes</h2>
               {loading && (
-                <div className="grid w-full grid-cols-1 gap-5 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
+                <div className="grid w-full grid-cols-1 gap-5 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
                   {[...Array(5)].map((_, idx) => (
                     <FoodCardSkeleton key={idx} />
                   ))}
@@ -93,7 +93,7 @@ const HomePage = () => {
               )}
               {error && <p className="text-red-500">Error: {error}</p>}
 
-              <div className="grid w-full grid-cols-1 gap-5 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
+              <div className="grid w-full grid-cols-1 gap-5 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
                 {recipes.map((recipe) => (
                   <FoodCard2 key={recipe.foodId} recipe={recipe} />
                 ))}

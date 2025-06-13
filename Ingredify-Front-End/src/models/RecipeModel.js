@@ -38,3 +38,17 @@ export const getRecipeDetail = async (foodId) => {
     throw error;
   }
 };
+
+export const getSimilarRecipe = async (foodId, token) => {
+  try {
+    const response = await axios.get(`${BASE_URL}/similar/${foodId}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return response.data;
+  } catch (error) {
+    console.error('Error in getSimilarRecipe:', error.response?.data || error.message);
+    throw error;
+  }
+};
